@@ -62,6 +62,9 @@ set(SUNSHINE_TARGET_FILES
         "${CMAKE_SOURCE_DIR}/third-party/moonlight-common-c/src/Rtsp.h"
         "${CMAKE_SOURCE_DIR}/third-party/moonlight-common-c/src/RtspParser.c"
         "${CMAKE_SOURCE_DIR}/third-party/moonlight-common-c/src/Video.h"
+        "${CMAKE_SOURCE_DIR}/third-party/nanors/deps/obl/oblas_common.c"
+        "${CMAKE_SOURCE_DIR}/third-party/nanors/deps/obl/oblas_lite.c"
+        "${CMAKE_SOURCE_DIR}/third-party/nanors/rs.c"
         "${CMAKE_SOURCE_DIR}/src/upnp.cpp"
         "${CMAKE_SOURCE_DIR}/src/upnp.h"
         "${CMAKE_SOURCE_DIR}/src/cbs.cpp"
@@ -116,16 +119,12 @@ set(SUNSHINE_TARGET_FILES
         "${CMAKE_SOURCE_DIR}/src/round_robin.h"
         "${CMAKE_SOURCE_DIR}/src/stat_trackers.h"
         "${CMAKE_SOURCE_DIR}/src/stat_trackers.cpp"
-        "${CMAKE_SOURCE_DIR}/src/rswrapper.h"
-        "${CMAKE_SOURCE_DIR}/src/rswrapper.c"
         ${PLATFORM_TARGET_FILES})
 
 if(NOT SUNSHINE_ASSETS_DIR_DEF)
     set(SUNSHINE_ASSETS_DIR_DEF "${SUNSHINE_ASSETS_DIR}")
 endif()
 list(APPEND SUNSHINE_DEFINITIONS SUNSHINE_ASSETS_DIR="${SUNSHINE_ASSETS_DIR_DEF}")
-
-list(APPEND SUNSHINE_DEFINITIONS SUNSHINE_TRAY=${SUNSHINE_TRAY})
 
 # Publisher metadata
 list(APPEND SUNSHINE_DEFINITIONS SUNSHINE_PUBLISHER_NAME="${SUNSHINE_PUBLISHER_NAME}")
@@ -152,6 +151,7 @@ list(APPEND SUNSHINE_EXTERNAL_LIBRARIES
         ${CMAKE_THREAD_LIBS_INIT}
         enet
         libdisplaydevice::display_device
+        lizardbyte::common
         nlohmann_json::nlohmann_json
         ${Opus_LIBRARY}
         ${FFMPEG_LIBRARIES}
@@ -166,3 +166,4 @@ else()
     set(SUNSHINE_TRAY 0)
     message(STATUS "Tray icon disabled")
 endif()
+list(APPEND SUNSHINE_DEFINITIONS SUNSHINE_TRAY=${SUNSHINE_TRAY})
